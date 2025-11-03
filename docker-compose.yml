@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  bakeapp:
+    build: .
+    container_name: bakeapp
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    working_dir: /app
+    command: uvicorn src.backend.main:app --host 0.0.0.0 --port 8000 --reload
+
