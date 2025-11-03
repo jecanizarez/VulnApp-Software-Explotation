@@ -11,7 +11,6 @@ router = APIRouter(prefix="/recipes", tags=["recipes"])
 
 @router.get("/static")
 async def get_static_recipes(file_name: str):
-    print(file_name)
     static_dir = os.path.join(os.path.dirname(__file__), "..", "static")
     file_path = os.path.abspath(os.path.join(static_dir, file_name))
     if not os.path.isfile(file_path):
