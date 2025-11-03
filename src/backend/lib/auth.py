@@ -150,7 +150,6 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 def authenticate_user(db, username: str, password: str) -> Optional[Dict[str, Any]]:
     """
     Authenticate a user by username and password.
-    WARNING: This uses SQL injection vulnerable queries!
 
     Args:
         db: Database instance
@@ -160,7 +159,6 @@ def authenticate_user(db, username: str, password: str) -> Optional[Dict[str, An
     Returns:
         Dict: User information if authentication succeeds, None otherwise
     """
-    # Intentionally vulnerable SQL query (no parameterization)
     query = f"SELECT id, username, email, password, role FROM users WHERE username = '{username}'"
     user = db.fetch_one(query)
 
@@ -169,11 +167,9 @@ def authenticate_user(db, username: str, password: str) -> Optional[Dict[str, An
 
     user_dict = row_to_dict(user)
 
-    # Verify password (plain text comparison - intentionally insecure)
     if not verify_password(password, user_dict.get("password", "")):
         return None
 
-    # Remove password from returned data
     user_dict.pop("password", None)
     return user_dict
 

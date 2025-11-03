@@ -1,10 +1,32 @@
-from fastapi import APIRouter, Depends, Body
-from starlette.responses import JSONResponse
+import os
+from fastapi import APIRouter, Depends, Body, HTTPException
+from starlette.responses import JSONResponse, FileResponse
 
 from src.backend.lib.auth import get_current_user, require_admin
 from src.backend.lib.database import db, row_to_dict, rows_to_dict_list
 
 router = APIRouter(prefix="/recipes", tags=["recipes"])
+
+
+
+@router.get("/static")
+async def get_static_recipes(file_name: str):
+    static_dir = os.path.join(os.path.dirname(__file__), "..", "static")
+    file_path = os.path.abspath(os.path.join(static_dir, file_name))
+    if not os.path.isfile(file_path):
+        raise HTTPException(status_code=404, detail="File not found")
+    return FileResponse(file_path)
+
+
+@router.get("/static/list")
+async def list_static_recipes():
+    static_dir = os.path.join(os.path.dirname(__file__), "..", "static")
+    files = []
+    for file_name in os.listdir(static_dir):
+        file_path = os.path.abspath(os.path.join(static_dir, file_name))
+        if os.path.isfile(file_path):
+            files.append(file_name)
+    return {"files": files}
 
 @router.post("/")
 async def create_recipe(
