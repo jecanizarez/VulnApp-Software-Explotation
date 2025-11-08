@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  bakeapp:
+  backend:
     build: .
-    container_name: bakeapp
+    container_name: bakeapp-backend
     ports:
       - "8000:8000"
     volumes:
@@ -13,3 +13,12 @@ services:
     working_dir: /app
     command: uvicorn src.backend.main:app --host 0.0.0.0 --port 8000 --reload
 
+  frontend:
+    image: nginx:alpine
+    container_name: bakeapp-frontend
+    ports:
+      - "3000:80"
+    volumes:
+      - ./src/frontend:/usr/share/nginx/html
+    depends_on:
+      - backend

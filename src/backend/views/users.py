@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter,Body
 from starlette.responses import JSONResponse
 from src.backend.lib.database import rows_to_dict_list, row_to_dict, db
 
@@ -20,7 +20,7 @@ async def get_users():
 
 
 @router.post("/")
-async def create_user(username: str, email: str, password: str):
+async def create_user(username:str = Body("username"), email: str = Body("email"), password: str =Body("password")):
     """Create a new user."""
     try:
         query = f"INSERT INTO users (username, email, password) VALUES ('{username}', '{email}', '{password}')"
