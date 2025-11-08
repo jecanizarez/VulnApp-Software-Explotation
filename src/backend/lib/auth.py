@@ -9,7 +9,7 @@ from typing import Optional, Dict, Any
 from fastapi import HTTPException, Security
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
-SECRET_KEY = "super_secret_key_no_salt"
+SECRET_KEY = "super_secret_key_no_salt_super_secure"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
