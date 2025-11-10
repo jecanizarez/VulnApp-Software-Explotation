@@ -2,7 +2,7 @@
 
 A baking recipe sharing web application built with FastAPI and SQLite3 for security testing and exploitation learning.
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Using Docker (recommended)
@@ -10,6 +10,9 @@ docker-compose up --build
 
 # Access the Backend Documentation
 open http://localhost:8000/docs
+
+# Access the Frontend
+open http://localhost:3000
 
 ```
 
@@ -57,6 +60,7 @@ BakeApp/
    ```
 
 2. **Access the application:**
+   - Frontend: http://localhost:3000 
    - API: http://localhost:8000
    - API Docs: http://localhost:8000/docs
 
@@ -103,7 +107,7 @@ curl "http://localhost:8000/users/1%20OR%201=1--"
 1 UNION SELECT username, password, email FROM users--
 ```
 
-⚠️ **WARNING**: This application contains INTENTIONAL security vulnerabilities for educational purposes.
+**WARNING**: This application contains INTENTIONAL security vulnerabilities for educational purposes.
 
 ### Known Vulnerabilities:
 1. **SQL Injection**: All database queries use string concatenation instead of parameterized queries
@@ -111,22 +115,8 @@ curl "http://localhost:8000/users/1%20OR%201=1--"
 3. **No Input Validation**: User inputs are not sanitized or validated
 4. **No Authentication**: No authentication or authorization mechanisms
 5. **No Rate Limiting**: No protection against brute force attacks
-
-### Usage Guidelines:
-- ✅ Use ONLY in isolated, controlled environments
-- ✅ Use for learning security testing and exploitation techniques
-- ✅ Use for practicing SQL injection attacks safely
-- ❌ Do NOT deploy in production
-- ❌ Do NOT expose to the internet
-- ❌ Do NOT use with real user data
-
-## Learning Objectives
-
-This application is designed to help you:
-- Understand how SQL injection vulnerabilities work
-- Practice identifying security flaws in web applications
-- Learn proper mitigation techniques by seeing what NOT to do
-- Test security tools and scanning techniques in a safe environment
+6. **XSS**: Recipe content field susceptible to XSS
+7. **Path Traversal**: file_name parameter in the URL susceptible to PT
 
 ## API Endpoints
 
@@ -142,10 +132,6 @@ This application is designed to help you:
   - Use `:memory:` for in-memory database (no persistence)
   - Use a file path like `/data/app.db` for persistent storage
 - `PYTHONUNBUFFERED` - Enable Python output buffering (default: `1`)
-
-## Security Notes
-
-⚠️ **Warning**: This is a vulnerable application designed for educational purposes. Do NOT deploy this in production or expose it to the internet.
 
 ## License
 
