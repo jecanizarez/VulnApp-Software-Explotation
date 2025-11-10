@@ -84,7 +84,7 @@ class Recipes {
         });
 
         const data = await response.json();
-        console.log('📡 Create recipe response:', data);
+        console.log('Create recipe response:', data);
 
         if (response.ok) {
             app.showMessage('Recipe created successfully!', 'success');

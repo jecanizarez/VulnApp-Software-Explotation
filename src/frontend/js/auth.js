@@ -81,7 +81,7 @@ class Auth {
         const password = document.getElementById('login-password').value;
         const messageEl = document.getElementById('login-message');
 
-        console.log('🔐 Attempting login with:', { username, password });
+        console.log('Attempting login with:', { username, password });
 
         try {
             const response = await fetch(`${this.apiBase}/login`, {
@@ -95,24 +95,24 @@ class Auth {
                 })
             });
 
-            console.log('📡 Login response status:', response.status);
+            console.log('Login response status:', response.status);
             
             const data = await response.json();
-            console.log('📡 Login response data:', data);
+            console.log('Login response data:', data);
 
             if (response.ok) {
-                console.log('✅ Login successful, token:', data.access_token?.substring(0, 20) + '...');
+                console.log('Login successful, token:', data.access_token?.substring(0, 20) + '...');
                 localStorage.setItem('token', data.access_token);
                 app.setUser(data.user);
                 app.showPage('recipes');
                 app.showMessage('Login successful!', 'success');
 
             } else {
-                console.log('❌ Login failed:', data.error);
+                console.log('Login failed:', data.error);
                 messageEl.innerHTML = `<div class="message error">${data.error || 'Login failed'}</div>`;
             }
         } catch (error) {
-            console.error('💥 Network error during login:', error);
+            console.error('Network error during login:', error);
             messageEl.innerHTML = `<div class="message error">Network error: ${error.message}</div>`;
         }
     }
@@ -141,7 +141,7 @@ class Auth {
             return; // Do not submit
         }
 
-        console.log('📝 Attempting registration with (sanitized):', { username, email, passwordLength: password.length });
+        console.log('Attempting registration with (sanitized):', { username, email, passwordLength: password.length });
 
         try {
             const response = await fetch(`${this.apiBase}/users`, {
@@ -156,9 +156,9 @@ class Auth {
                 })
             });
 
-            console.log('📡 Registration response status:', response.status);
+            console.log('Registration response status:', response.status);
             const data = await response.json();
-            console.log('📡 Registration response data:', data);
+            console.log('Registration response data:', data);
 
             if (response.ok) {
                 messageEl.innerHTML = `<div class="message success">Registration successful! Welcome ${username}</div>`;
@@ -170,7 +170,7 @@ class Auth {
                 messageEl.innerHTML = `<div class="message error">${data.error || 'Registration failed'}</div>`;
             }
         } catch (error) {
-            console.error('💥 Network error during registration:', error);
+            console.error('Network error during registration:', error);
             messageEl.innerHTML = `<div class="message error">Network error: ${error.message}</div>`;
         }
     }
